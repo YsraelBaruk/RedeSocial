@@ -40,19 +40,24 @@ if(isset($_POST['btnDelete'])){
         </div>';
     }
 }
-if(isset($_POST['btnUserDelete'])){
-    //$_SESSION['user_logado']->email;
-    $_SESSION['user_logado'] = 'CALL usuario_excluir(:email)';
-    $email = $_POST['btnUserDelete'];
-    var_dump($email);
-    $cxPreparado = $cx->prepare($cmdSql);
-    if(!$cxPreparado->execute([':email'=>$email])){
-        echo'<div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Exclusão de usuário</h4>
-            <p>Erro ao deletar o usuário</p>
-        </div>';
+//$_SESSION['user_logado']->nome
+if(isset($_SESSION['user_logado'])){
+    if(isset($_POST['btnUserDelete'])){
+        $cmdSql = 'CALL usuario_excluir(:email)';
+        $email = $_POST['btnUserDelete'];
+        
+        var_dump($email);
+    
+        $cxPreparado = $cx->prepare($cmdSql);
+        if(!$cxPreparado->execute([':email'=>$_SESSION['user_logado']->email])){
+            echo'<div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Exclusão de usuário</h4>
+                <p>Erro ao deletar o usuário</p>
+            </div>';
+        }
     }
 }
+
 
 ?>
 
@@ -109,8 +114,9 @@ if(isset($_POST['btnUserDelete'])){
 
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h1>Configurações de Usuário</h1>
-         <div class="card-columns">
-         </div>
+        <?php
+            echo'<button type="submit" value="'.$usuario->email.'" name="btnUserDelete" class="btn btn-primary">Excluir Conta</button>';        
+        ?>
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <div class="dropdown">
