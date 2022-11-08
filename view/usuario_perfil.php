@@ -78,6 +78,12 @@ if(isset($_POST['btnUserDelete'])){
         <form method="POST" class="form-inline" enctype="multipart/form-data"> 
             <input type="file" class="form-control" name="foto" >            
             <button type="submit" name="btnImg" class="btn btn-primary form-control">Enviar IMG</button>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
         <fieldset>
